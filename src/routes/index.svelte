@@ -3,7 +3,7 @@
 </script>
 
 <script>
-  // const website = "e-commerce";
+  const website = "e-commerce";
   // import Counter from "$lib/Counter.svelte";
 
   // import Card from "$lib/contents/Card.svelte";
