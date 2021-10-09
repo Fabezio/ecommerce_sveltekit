@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"$lib": ["src/libs"],
+			"$lib": ["src/lib"],
 			"$lib/*": ["src/lib/*"]
 		}
 	},
