@@ -14,6 +14,8 @@
   "dependencies": {
     "@fontsource/fira-mono": "^4.5.0",
     "@lukeed/uuid": "^2.0.0",
-    "cookie": "^0.4.1"
+    "cookie": "^0.4.1",
+    "mongoose": "^6.0.9",
+    "thousands": "^1.0.1"
   }
 }

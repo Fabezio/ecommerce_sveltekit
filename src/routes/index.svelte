@@ -4,7 +4,27 @@
 </script>
 
 <script>
-  import Counter from "$lib/Counter.svelte";
+  // import Counter from "$lib/Counter.svelte";
+
+  // import Card from "$lib/contents/Card.svelte";
+  import ConditionnalList from "$lib/contents/ConditionnalList.svelte";
+  import { products } from "$lib/data/products";
+  let label = "";
+  let isSelected = false;
+  let selectedItems = [];
+
+  function foundItems() {
+    isSelected = true;
+    return (selectedItems = products.filter((card) => card.label === label));
+  }
+  function resetItems() {
+    label = "";
+    isSelected = false;
+    selectedItems = [];
+    return label, isSelected, selectedItems;
+    // selectedItems = [...products];
+  }
+  $: console.log(selectedItems);
 </script>
 
 <svelte:head>
@@ -14,30 +34,37 @@
 <section>
   <h1>
     {website}
-    <!-- <div class="welcome">
-			<picture>
-				<source srcset="svelte-welcome.webp" type="image/webp" />
-				<img src="svelte-welcome.png" alt="Welcome" />
-			</picture>
-		</div>
-
-		to your new<br />SvelteKit app -->
-    <!-- </h1>
-
-  <h2>
-    try editing <strong>src/routes/index.svelte</strong>
-  </h2>
-
-  <Counter /> -->
   </h1>
-  <h2>products</h2>
+  <h2>produits</h2>
+
   <div class="cards-group">
+    {#if !isSelected}
+      <ConditionnalList cards={products} />
+    {:else}
+      <ConditionnalList cards={selectedItems} />
+    {/if}
+    <!-- <div class="card" />
     <div class="card" />
-    <div class="card" />
-    <div class="card" />
-    <div class="card" />
+    <div class="card" /> -->
   </div>
-  <p>c'est <strong>mes</strong> produits, na!</p>
+  <!-- <p>c'est <strong>mes</strong> produits, na!</p> -->
+  <h2>Rechercher un produit</h2>
+  <form>
+    <label for="label">nom du produit </label>
+    <input
+      on:change={() => foundItems()}
+      id="label"
+      name="label"
+      bind:value={label}
+      list="hint"
+    />
+    <datalist id="hint">
+      {#each products as product}
+        <option value={product.label} />
+      {/each}
+    </datalist>
+  </form>
+  <button on:change={resetItems()}>reinitialiser</button>
 </section>
 
 <style>
@@ -52,34 +79,35 @@
   h1 {
     width: 100%;
   }
-  .card {
-    min-width: 20em;
-    min-height: 20em;
-    border: 2px solid darkgray;
-    border-radius: 8px;
-  }
+
   .cards-group {
+    display: grid;
+    /* max-width: 100%; */
+    grid-gap: 1em;
     text-align: center;
+    /* grid-auto-rows: column; */
+    /* grid-template-columns: repeat(auto-fill, 212px); */
   }
 
-  .welcome {
+  /* .welcome {
     position: relative;
     width: 100%;
     height: 0;
     padding: 0 0 calc(100% * 495 / 2048) 0;
-  }
+  } */
 
-  .welcome img {
+  /* .welcome img {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     display: block;
-  }
+  } */
+  /* section {
+    margin-bottom: 3em;
+  } */
   @media screen and (min-width: 480px) {
     .cards-group {
-      display: grid;
-      grid-gap: 1em;
       grid-template-columns: repeat(2, 1fr);
     }
   }
